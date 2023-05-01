@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">native-cpp-test</string>
+    <string name="log_view_placeholder">this will show logs</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="monday">Monday</string>
+</resources>
