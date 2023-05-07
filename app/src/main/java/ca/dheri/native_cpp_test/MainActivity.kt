@@ -32,31 +32,6 @@ class MainActivity : AppCompatActivity() {
         // Example of a call to a native method
         binding.sampleText.text = stringFromJNI()
 
-        try {
-            val process = Runtime.getRuntime().exec("logcat -d")
-            val bufferedReader = BufferedReader(
-                InputStreamReader(process.inputStream)
-            )
-            var line: String? = ""
-            while (bufferedReader.readLine().also { line = it } != null) {
-                binding.logViewTextView.append( "\n"+ line)
-            }
-
-        } catch (e: IOException) {
-            binding.logViewTextView.append(e.stackTraceToString())
-        }
-    }
-
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        binding.scrollView2.postDelayed({ binding.scrollView2.fullScroll(View.FOCUS_DOWN) }, 200)
-
-        val touchCoordinates: String = "x=%f \t y=%f \n".format(event?.x, event?.y)
-        binding.logViewTextView.append(touchCoordinates)
-//        Log.d("TouchEvent", touchCoordinates)
-
-        return true
-
     }
 
     private fun onClearLogButtonClick(): (v: View) -> Unit = {
@@ -68,8 +43,9 @@ class MainActivity : AppCompatActivity() {
         val audioManager =  it.context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val devices   = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
         for (device in devices) {
-           val  deviceInfo :String = "%s \n%s\n --\n".format(device.productName.toString(), device.audioProfiles )
+           val  deviceInfo :String = "%s \n%s\n --\n".format(device.productName.toString(), device.id )
             Log.d("AudioDeviceInfo", deviceInfo)
+            binding.logViewTextView.append(deviceInfo)
         }
         val s =  test2()
         Log.d("onMagicButtonClick test2", s)
